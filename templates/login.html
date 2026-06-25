@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIDUT CLOUD - Masuk / Daftar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .card-login { border: none; border-radius: 16px; background-color: #ffffff; width: 100%; max-width: 420px; }
+        .form-control:focus, .form-select:focus { border-color: #0f172a; box-shadow: 0 0 0 0.2rem rgba(15, 23, 42, 0.15); }
+        .btn-dark-custom { background-color: #0f172a; color: white; border: none; }
+        .btn-dark-custom:hover { background-color: #1e293b; color: white; }
+        .nav-pills .nav-link.active { background-color: #0f172a; }
+        .nav-pills .nav-link { color: #64748b; }
+    </style>
+</head>
+<body>
+
+    <div class="card card-login shadow-lg p-4 mx-3">
+        <div class="text-center mb-3">
+            <div class="p-3 bg-primary-subtle text-primary d-inline-block rounded-circle mb-2">
+                <i class="fa-solid fa-cloud fa-2xl text-info"></i>
+            </div>
+            <h4 class="fw-bold text-dark mb-1">Didut Cloud</h4>
+            <p class="text-muted small">Sistem Informasi Akademik Berbasis Cloud</p>
+        </div>
+
+        {% if error %}
+        <div class="alert alert-danger small py-2 rounded-3 text-center" role="alert">
+            <i class="fa-solid fa-circle-exclamation me-1"></i> {{ error }}
+        </div>
+        {% endif %}
+        {% if success %}
+        <div class="alert alert-success small py-2 rounded-3 text-center" role="alert">
+            <i class="fa-solid fa-circle-check me-1"></i> {{ success }}
+        </div>
+        {% endif %}
+
+        <ul class="nav nav-pills nav-justified mb-4 bg-light p-1 rounded-3" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <button class="nav-link active fw-semibold small" id="tab-login" data-bs-toggle="pill" data-bs-target="#content-login" type="button" role="tab">Masuk</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link fw-semibold small" id="tab-daftar" data-bs-toggle="pill" data-bs-target="#content-daftar" type="button" role="tab">Daftar Baru</button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="content-login" role="tabpanel">
+                <form action="/login" method="POST">
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold text-secondary">Username</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light text-muted border-end-0"><i class="fa-solid fa-user small"></i></span>
+                            <input type="text" class="form-control bg-light border-start-0 py-2 rounded-end-3" name="username" placeholder="Masukkan username" required>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label small fw-semibold text-secondary">Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light text-muted border-end-0"><i class="fa-solid fa-lock small"></i></span>
+                            <input type="password" class="form-control bg-light border-start-0 py-2 rounded-end-3" name="password" placeholder="Masukkan password" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-dark-custom w-100 py-2.5 fw-bold rounded-3 shadow-sm">
+                        <i class="fa-solid fa-right-to-bracket me-1"></i> Masuk ke Sistem
+                    </button>
+                </form>
+            </div>
+
+            <div class="tab-pane fade" id="content-daftar" role="tabpanel">
+                <form action="/register" method="POST">
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold text-secondary">Buat Username</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light text-muted border-end-0"><i class="fa-solid fa-user-plus small"></i></span>
+                            <input type="text" class="form-control bg-light border-start-0 py-2 rounded-end-3" name="username" placeholder="Contoh: didut123" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold text-secondary">Buat Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light text-muted border-end-0"><i class="fa-solid fa-key small"></i></span>
+                            <input type="password" class="form-control bg-light border-start-0 py-2 rounded-end-3" name="password" placeholder="Minimal 4 karakter" required>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label small fw-semibold text-secondary">Pilih Peran (Role)</label>
+                        <select class="form-select bg-light py-2 rounded-3" name="role" required>
+                            <option value="mahasiswa" selected>Mahasiswa (Hanya Lihat Data)</option>
+                            <option value="dosen">Dosen (Bisa Input & Edit Data)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100 py-2.5 fw-bold rounded-3 shadow-sm">
+                        <i class="fa-solid fa-user-check me-1"></i> Buat Akun & Simpan ke Cloud
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="text-center mt-4 border-top pt-3 text-muted" style="font-size: 11px;">
+            Sistem Informasi Akademik Berbasis Cloud &copy; 2026
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
