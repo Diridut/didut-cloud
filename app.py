@@ -173,6 +173,10 @@ def tambah_matakuliah():
 def lihat_nilai():
     if not session.get('logged_in'):
         return redirect(url_for('login'))
+    
+    # 🔒 PROTEKSI GERBANG: Jika yang masuk BUKAN dosen, tendang balik ke Dashboard (home)
+    if session.get('role') != 'dosen':
+        return redirect(url_for('home'))
         
     try:
         # Mengambil daftar nilai serta data mahasiswa dan matkul untuk opsi dropdown form

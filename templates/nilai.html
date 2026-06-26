@@ -25,17 +25,30 @@
                 <i class="fa-solid fa-cloud text-info"></i> SIAKAD CLOUD
             </a>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto gap-2">
+                <ul class="navbar-nav ms-auto gap-2 align-items-center">
                     <li class="nav-item"><a class="nav-link fw-medium text-white-50" href="/"><i class="fa-solid fa-chart-pie me-1"></i> Dashboard</a></li>
                     <li class="nav-item"><a class="nav-link fw-medium text-white-50" href="/mahasiswa"><i class="fa-solid fa-user-graduate me-1"></i> Mahasiswa</a></li>
                     <li class="nav-item"><a class="nav-link fw-medium text-white-50" href="/matakuliah"><i class="fa-solid fa-book-open me-1"></i> Mata Kuliah</a></li>
                     <li class="nav-item"><a class="nav-link active fw-medium" href="/nilai"><i class="fa-solid fa-star me-1"></i> Nilai</a></li>
+                    
+                    <li class="nav-item ms-2">
+                        <a class="btn btn-sm btn-danger px-3 rounded-pill fw-bold text-white shadow-sm" href="/logout">
+                            <i class="fa-solid fa-right-from-bracket"></i> Keluar
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 
     <div class="container my-5">
+        <div class="alert alert-secondary border-0 rounded-3 p-3 shadow-sm mb-4 d-flex justify-content-between align-items-center">
+            <span class="small text-dark mb-0">
+                <i class="fa-solid fa-circle-user text-primary me-1"></i> Anda masuk sebagai: <strong>{{ user.username }}</strong> 
+                <span class="badge bg-dark ms-1">{{ user.role.upper() }}</span>
+            </span>
+        </div>
+
         <div class="row g-4">
             <div class="col-md-4">
                 <div class="card card-custom shadow-sm p-4">
@@ -93,7 +106,11 @@
                                     <td class="fw-bold text-dark py-3">{{ nl.nim_mahasiswa }}</td>
                                     <td class="text-secondary">{{ nl.kode_matkul }}</td>
                                     <td><span class="badge bg-dark text-white px-3 py-2 rounded fw-medium">{{ nl.angka_nilai }}</span></td>
-                                    <td><span class="badge bg-warning text-dark px-3 py-2 rounded fw-bold">{{ nl.huruf_nilai }}</span></td>
+                                    <td>
+                                        <span class="badge {% if nl.huruf_nilai in ['A','B'] %}bg-success text-white{% elif nl.huruf_nilai == 'C' %}bg-warning text-dark{% else %}bg-danger text-white{% endif %} px-3 py-2 rounded fw-bold">
+                                            {{ nl.huruf_nilai }}
+                                        </span>
+                                    </td>
                                 </tr>
                                 {% else %}
                                 <tr>
